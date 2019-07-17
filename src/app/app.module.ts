@@ -5,21 +5,66 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "./material.module";
 import { ServicesModule } from "./services.module";
-
+import { MsalModule, MsalInterceptor } from "@azure/msal-angular";
 import { AppComponent } from "./app.component";
-
+import { ApolloModule } from "apollo-angular";
+import { HttpLinkModule } from "apollo-angular-link-http";
 import { Routes, RouteComponents } from "./routes";
 import { Components } from "./components";
 import { Dialogs } from "./dialogs";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { LogLevel } from "msal";
+
+export function loggerCallback(logLevel, message, piiEnabled) {
+  console.log("client logging" + message);
+}
+
+export const protectedResourceMap: [string, string[]][] = [
+  // [
+  //   "https://qrmwf.sse.codesandbox.io/",
+  //   ["https://TeamWiz.onmicrosoft.com/app/demo.read"]
+  // ],
+  [
+    "https://graph.microsoft.com/v1.0/me",
+    ["https://TeamWiz.onmicrosoft.com/app/user.read"]
+  ]
+];
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
+    ApolloModule,
+    HttpLinkModule,
     MaterialModule,
     ServicesModule,
-    RouterModule.forRoot(Routes)
+    RouterModule.forRoot(Routes),
+    MsalModule.forRoot({
+      clientID: "7ee72502-ef01-4d2a-a7c3-c6b201beb934",
+      authority:
+        "https://login.microsoftonline.com/tfp/TeamWiz.onmicrosoft.com/B2C_1_signupsignin1",
+      redirectUri: "https://ooybl.codesandbox.io/home/",
+      validateAuthority: true,
+      // cacheLocation: "localStorage",
+      postLogoutRedirectUri: "https://ooybl.codesandbox.io/",
+      navigateToLoginRequestUrl: true,
+      popUp: false,
+      consentScopes: [
+        "https://TeamWiz.onmicrosoft.com/app/user.read",
+        "https://TeamWiz.onmicrosoft.com/app/demo.read"
+      ],
+      unprotectedResources: [
+        "https://angular.io/",
+        "https://qrmwf.sse.codesandbox.io/"
+      ],
+      protectedResourceMap: protectedResourceMap,
+      logger: loggerCallback,
+      correlationId: "1234",
+      level: LogLevel.Verbose,
+      piiLoggingEnabled: true
+    })
   ],
   declarations: [
     AppComponent,
@@ -28,6 +73,14 @@ import { Dialogs } from "./dialogs";
     [...Dialogs]
   ],
   entryComponents: [[...Dialogs]],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    // RecipeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    }
+  ]
 })
 export class AppModule {}
