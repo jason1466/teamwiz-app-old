@@ -31,6 +31,9 @@ export class GraphqlService {
           recipes {
             _id
             createdAt
+            createdBy
+            updatedAt
+            updatedBy
             title
             description
             ingredients
@@ -52,6 +55,9 @@ export class GraphqlService {
           recipe(id: $recipeID) {
             _id
             createdAt
+            createdBy
+            updatedAt
+            updatedBy
             title
             description
             ingredients
