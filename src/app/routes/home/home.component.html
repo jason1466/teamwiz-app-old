@@ -3,3 +3,4 @@
         <li><a  *ngIf="!loggedIn"   (click)="login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a  *ngIf="loggedIn" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 </ul>
+<button (click)="getRecipes()">Get Recipes</button>

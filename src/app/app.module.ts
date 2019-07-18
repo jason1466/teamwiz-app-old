@@ -20,10 +20,10 @@ export function loggerCallback(logLevel, message, piiEnabled) {
 }
 
 export const protectedResourceMap: [string, string[]][] = [
-  // [
-  //   "https://qrmwf.sse.codesandbox.io/",
-  //   ["https://TeamWiz.onmicrosoft.com/app/demo.read"]
-  // ],
+  [
+    "https://ss1uy.sse.codesandbox.io/",
+    ["https://TeamWiz.onmicrosoft.com/app/demo.read"]
+  ],
   [
     "https://graph.microsoft.com/v1.0/me",
     ["https://TeamWiz.onmicrosoft.com/app/user.read"]
@@ -56,8 +56,8 @@ export const protectedResourceMap: [string, string[]][] = [
         "https://TeamWiz.onmicrosoft.com/app/demo.read"
       ],
       unprotectedResources: [
-        "https://angular.io/",
-        "https://qrmwf.sse.codesandbox.io/"
+        "https://angular.io/"
+        // "https://ss1uy.sse.codesandbox.io/"
       ],
       protectedResourceMap: protectedResourceMap,
       logger: loggerCallback,

@@ -4,7 +4,6 @@ import { HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import gql from "graphql-tag";
 import { Recipe, RecipeCreateDto, RecipeUpdateDto } from "../models";
-import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +17,7 @@ export class GraphqlService {
   constructor(private apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
       link: httpLink.create({
-        uri: "https://qrmwf.sse.codesandbox.io/graphql"
+        uri: "https://ss1uy.sse.codesandbox.io/graphql"
       }),
       cache: new InMemoryCache()
     });
