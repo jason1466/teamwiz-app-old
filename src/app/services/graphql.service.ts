@@ -24,7 +24,7 @@ export class GraphqlService {
   }
 
   public getRecipes = () => {
-    const obs = this.apollo.query({
+    const obs = this.apollo.query<any>({
       query: gql`
         query getRecipes {
           recipes {
@@ -48,7 +48,7 @@ export class GraphqlService {
   };
 
   public getRecipe = id => {
-    const obs = this.apollo.query({
+    const obs = this.apollo.query<any>({
       query: gql`
         query getRecipe($recipeID: String!) {
           recipe(id: $recipeID) {

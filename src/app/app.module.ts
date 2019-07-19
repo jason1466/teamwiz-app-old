@@ -21,7 +21,7 @@ export function loggerCallback(logLevel, message, piiEnabled) {
 
 export const protectedResourceMap: [string, string[]][] = [
   [
-    "https://ss1uy.sse.codesandbox.io/",
+    "https://ss1uy.sse.codesandbox.io/graphql",
     ["https://TeamWiz.onmicrosoft.com/app/demo.read"]
   ],
   [
@@ -45,10 +45,12 @@ export const protectedResourceMap: [string, string[]][] = [
       clientID: "7ee72502-ef01-4d2a-a7c3-c6b201beb934",
       authority:
         "https://login.microsoftonline.com/tfp/TeamWiz.onmicrosoft.com/B2C_1_signupsignin1",
-      redirectUri: "https://ooybl.codesandbox.io/home/",
+      // redirectUri: "https://ooybl.codesandbox.io/home/",
+      redirectUri: "http://localhost:4200/home/",
       validateAuthority: true,
       // cacheLocation: "localStorage",
-      postLogoutRedirectUri: "https://ooybl.codesandbox.io/",
+      // postLogoutRedirectUri: "https://ooybl.codesandbox.io/",
+      postLogoutRedirectUri: "http://localhost:4200/",
       navigateToLoginRequestUrl: true,
       popUp: false,
       consentScopes: [
